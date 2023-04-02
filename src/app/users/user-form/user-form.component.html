@@ -1,0 +1,142 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card
+    [header]="editMode ? 'Edit User' : 'Add User'"
+    subheader="You can add or edit products here"
+  >
+    <div class="grid mb-5">
+      <div class="col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary mr-2"
+              [label]="editMode ? 'Update' : 'Create'"
+              icon="pi pi-plus"
+              (onClick)="submit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+              (onClick)="back()"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="grid">
+      <div class="col-12">
+        <form [formGroup]="form">
+          <div class="card">
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-4">
+                <label for="name">First Name</label>
+                <input
+                  id="firstName"
+                  type="text"
+                  formControlName="firstName"
+                  placeholder="Please enter First name"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                />
+                <small
+                  *ngIf="
+                    (isSubmited && userForm['firstName'].invalid) ||
+                    (userForm['firstName'].touched &&
+                      userForm['firstName'].invalid)
+                  "
+                  class="p-error"
+                  >first Name is required</small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  formControlName="lastName"
+                  placeholder="Please enter Last Name"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                />
+                <small
+                  *ngIf="
+                    (isSubmited && userForm['lastName'].invalid) ||
+                    (userForm['lastName'].touched &&
+                      userForm['lastName'].invalid)
+                  "
+                  class="p-error"
+                  >Last Name is required</small
+                >
+              </div>
+              <div class="field col-4">
+                <label for="email">Email</label><br />
+                <input
+                  id="email"
+                  type="text"
+                  formControlName="email"
+                  placeholder="Please enter email"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                />
+                <small
+                  *ngIf="
+                    (isSubmited && userForm['email'].invalid) ||
+                    (userForm['email'].touched && userForm['email'].invalid)
+                  "
+                  class="p-error"
+                >
+                  <span *ngIf="userForm['email'].errors?.['required']"
+                    >Email is required</span
+                  >
+                  <span *ngIf="userForm['email'].errors?.['email']"
+                    >Email is invalid</span
+                  ></small
+                >
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid grid">
+              <div class="field col-4">
+                <label for="phone">Phone</label><br />
+                <p-inputNumber
+                  formControlName="phone"
+                  inputId="phone"
+                  [useGrouping]="false"
+                  placeholder="(999) 999-9999"
+                ></p-inputNumber>
+                <small
+                  *ngIf="
+                    (isSubmited && userForm['phone'].invalid) ||
+                    (userForm['phone'].touched && userForm['phone'].invalid)
+                  "
+                  class="p-error"
+                  >Phone is required</small
+                >
+              </div>
+            </div>
+            <div class="p-fluid p-formgrid p-grid">
+              <div class="field p-col-12">
+                <label for="name">Main Image</label>
+                <input
+                  type="file"
+                  class="p-inputtext"
+                  accept="image/*"
+                  (change)="onImageUpload($event)"
+                />
+                <small
+                  *ngIf="
+                    (isSubmited && userForm['image'].invalid) ||
+                    (userForm['image'].touched && userForm['image'].invalid)
+                  "
+                  class="p-error"
+                  >Image is required</small
+                >
+                <div class="col-2 mt-2 pl-0">
+                  <img style="width: 100%" [src]="imageDisplay" alt="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
